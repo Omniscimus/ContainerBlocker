@@ -18,3 +18,4 @@ local.properties
 .buildpath
 .target
 .texlipse
+target/
