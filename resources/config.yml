@@ -1,0 +1,16 @@
+# For which containers should the restrictions here apply?
+containers:
+  furnace: true
+  chest: true
+  hopper: true
+  dropper: true
+
+# Should all items be blocked from the containers except those on this list?
+# If this is true, all items will be blocked from containers except those listed below.
+# If this is false, only the items on the list below will be blocked from containers.
+blockallitems: false
+
+# Which items should be in the list of items?
+items:
+- ==: org.bukkit.inventory.ItemStack
+  type: LAPIS_BLOCK
