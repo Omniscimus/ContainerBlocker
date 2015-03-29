@@ -7,6 +7,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * @author Omniscimus
+ */
 public class ContainerBlockerCommandExecutor implements CommandExecutor {
 
 	private ContainerBlocker plugin;
