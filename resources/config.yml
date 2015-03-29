@@ -1,9 +1,15 @@
-# For which containers should the restrictions here apply?
-containers:
-  furnace: true
-  chest: true
-  hopper: true
-  dropper: true
+# For which inventories should the restrictions here apply?
+# Allowed values: FURNACE, HOPPER, DROPPER, BREWING, DISPENSER, CHEST, ENDER_CHEST, ANVIL, WORKBENCH, BEACON, ENCHANTING, CRAFTING, MERCHANT
+# WORKBENCH is a crafting table; CRAFTING is the survival crafting inventory; MERCHANT is villager trading.
+# Note: the plugin doesn't care about lower or UPPER case.
+inventories:
+- furnace
+- hopper
+- dropper
+- brewing
+- dispenser
+- chest
+- ender_chest
 
 # Should all items be blocked from the containers except those on this list?
 # If this is true, all items will be blocked from containers except those listed below.

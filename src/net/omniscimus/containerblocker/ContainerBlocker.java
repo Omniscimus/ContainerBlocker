@@ -1,11 +1,11 @@
 package net.omniscimus.containerblocker;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,6 +22,13 @@ public class ContainerBlocker extends JavaPlugin {
 	private ContainerBlockerCommandExecutor commandExecutor;
 
 	//-----------------------//
+	//     Useful stuff      //
+	//-----------------------//
+	
+	private FileConfiguration config;
+	private Logger logger;
+	
+	//-----------------------//
 	//   config.yml values   //
 	//-----------------------//
 	
@@ -29,6 +36,11 @@ public class ContainerBlocker extends JavaPlugin {
 	/** @return true if all items should be blocked except the listed ones, false if only the listed items should be blocked */
 	public boolean getBlockMode() {
 		return blockMode;
+	}
+	
+	private List<InventoryType> inventoryList;
+	public List<InventoryType> getInventoryList() {
+		return inventoryList;
 	}
 	
 	private List<ItemStack> itemList;
@@ -53,12 +65,25 @@ public class ContainerBlocker extends JavaPlugin {
 	@Override
 	public void onEnable() {
 
+		config = getConfig();
+		logger = getLogger();
+		
 		//-----------------------//
 		//     Configuration     //
 		//-----------------------//
 		saveDefaultConfig();
-		blockMode = getConfig().getBoolean("blockallitems");
-		itemList = (List<ItemStack>) getConfig().getList("items");
+		blockMode = config.getBoolean("blockallitems");
+		itemList = (List<ItemStack>) config.getList("items");
+		
+		inventoryList = new ArrayList<InventoryType>();
+		List<String> stringInventories = config.getStringList("inventories");
+		for(String invStr : stringInventories) {
+			try {
+				inventoryList.add(InventoryType.valueOf(invStr.toUpperCase()));
+			} catch(IllegalArgumentException e) {
+				logger.warning("Wrong config.yml setup! Inventory type " + invStr.toUpperCase() + " doesn't exist!");
+			}
+		}
 
 		//-----------------------//
 		//        Classes        //
