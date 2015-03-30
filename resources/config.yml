@@ -20,6 +20,7 @@ blockallitems: false
 message_on_block: false
 
 # Which items should be in the list of items?
+# It's preferable if you don't change this here; instead, add and remove items using /cb add and /cb remove.
 items:
 - ==: org.bukkit.inventory.ItemStack
   type: LAPIS_BLOCK
