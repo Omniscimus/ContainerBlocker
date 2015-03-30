@@ -16,7 +16,7 @@ public class ContainerBlockerListener implements Listener {
 	}
 
 	@EventHandler
-	public void onFurnace(InventoryClickEvent e) {
+	public void onInventoryClick(InventoryClickEvent e) {
 
 		if(e.getWhoClicked().hasPermission("containerblocker.override")) return;
 

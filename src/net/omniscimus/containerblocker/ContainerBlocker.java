@@ -94,6 +94,7 @@ public class ContainerBlocker extends JavaPlugin {
 		
 		getServer().getPluginManager().registerEvents(listener, this);
 		getCommand("containerblocker").setExecutor(commandExecutor);
+		getCommand("cb").setExecutor(commandExecutor);
 
 	}
 	

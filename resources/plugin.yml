@@ -7,3 +7,4 @@ commands:
    containerblocker:
       description: The main command for ContainerBlocker.
       usage: /containerblocker help
+      aliases: [cb]

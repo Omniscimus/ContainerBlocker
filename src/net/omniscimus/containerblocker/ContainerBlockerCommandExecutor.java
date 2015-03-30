@@ -20,8 +20,8 @@ public class ContainerBlockerCommandExecutor implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		// If the command is something else than /containerblocker, return
-		if(!commandLabel.equalsIgnoreCase("containerblocker")) return true;
+		// We don't have to check if the command is /cb or /containerblocker because this executor class is only passed those commands.
+		
 		// If the sender isn't the console and hasn't got the containerblocker.admin permission, return
 		if(sender instanceof Player && !sender.hasPermission("containerblocker.admin")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to execute this command.");
@@ -38,7 +38,7 @@ public class ContainerBlockerCommandExecutor implements CommandExecutor {
 		else if(args.length == 1) {
 			if(args[0].equalsIgnoreCase("?") || args[0].equalsIgnoreCase("help")) {
 				sender.sendMessage(
-						ChatColor.GOLD + "\n-- ContainerBlocker command help --\n/containerblocker list: " + ChatColor.RED + "displays the list of relevant items.\n" + ChatColor.GOLD + "/containerblocker add: " + ChatColor.RED + "adds the item you're currently holding to the list.\n" + ChatColor.GOLD + "/containerblocker remove: " + ChatColor.RED + "removes the item you're currently holding from the list.\n"
+						ChatColor.RED + "\n-- " + ChatColor.GOLD + "ContainerBlocker command help " + ChatColor.RED + "--\n" + ChatColor.GOLD + "/containerblocker list: " + ChatColor.RED + "displays the list of relevant items.\n" + ChatColor.GOLD + "/containerblocker add: " + ChatColor.RED + "adds the item you're currently holding to the list.\n" + ChatColor.GOLD + "/containerblocker remove: " + ChatColor.RED + "removes the item you're currently holding from the list.\n"
 						);
 				return true;
 			}
@@ -47,6 +47,7 @@ public class ContainerBlockerCommandExecutor implements CommandExecutor {
 				for(ItemStack is : plugin.getItemList()) {
 					sender.sendMessage(ChatColor.RED + "- " + is.getType().toString() + ":" + is.getDurability());
 				}
+				if(plugin.getItemList().size() == 0) sender.sendMessage(ChatColor.RED + "There are no items on the list.");
 				return true;
 			}
 			else if(args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("remove")) {
