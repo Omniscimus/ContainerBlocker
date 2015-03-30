@@ -16,6 +16,9 @@ inventories:
 # If this is false, only the items on the list below will be blocked from containers, so this list will be a block list.
 blockallitems: false
 
+# Should the players get a message if an item is blocked?
+message_on_block: false
+
 # Which items should be in the list of items?
 items:
 - ==: org.bukkit.inventory.ItemStack

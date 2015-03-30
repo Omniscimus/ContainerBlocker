@@ -38,6 +38,11 @@ public class ContainerBlocker extends JavaPlugin {
 		return blockMode;
 	}
 	
+	private boolean message_on_block;
+	public boolean getMessage_on_block() {
+		return message_on_block;
+	}
+	
 	private List<InventoryType> inventoryList;
 	public List<InventoryType> getInventoryList() {
 		return inventoryList;
@@ -48,7 +53,7 @@ public class ContainerBlocker extends JavaPlugin {
 		return itemList;
 	}
 	
-	/** @return true if one of this item is on the list */
+	/** @return true if this item is on the list */
 	public boolean itemIsOnList(ItemStack item) {
 		for(ItemStack is : getItemList()) {
 			if(is.isSimilar(item)) return true;
@@ -72,7 +77,8 @@ public class ContainerBlocker extends JavaPlugin {
 		//     Configuration     //
 		//-----------------------//
 		saveDefaultConfig();
-		blockMode = config.getBoolean("blockallitems");
+		blockMode = !config.getBoolean("blockallitems");
+		message_on_block = config.getBoolean("message_on_block");
 		itemList = (List<ItemStack>) config.getList("items");
 		
 		inventoryList = new ArrayList<InventoryType>();

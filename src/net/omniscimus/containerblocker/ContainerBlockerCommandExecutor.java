@@ -1,6 +1,7 @@
 package net.omniscimus.containerblocker;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -53,10 +54,14 @@ public class ContainerBlockerCommandExecutor implements CommandExecutor {
 			else if(args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("remove")) {
 				if(sender instanceof Player) {
 					if(args[0].equalsIgnoreCase("add")) {
-						plugin.getItemList().add(((Player)sender).getItemInHand());
-						plugin.getConfig().set("items", plugin.getItemList());
-						sender.sendMessage(ChatColor.RED + "Item has been added to the list.");
-						plugin.saveConfig();
+						ItemStack item = ((Player)sender).getItemInHand();
+						if(item.getType() == Material.AIR) sender.sendMessage(ChatColor.RED + "Can't add air to the list!");
+						else {
+							plugin.getItemList().add(item);
+							plugin.getConfig().set("items", plugin.getItemList());
+							sender.sendMessage(ChatColor.RED + "Item has been added to the list.");
+							plugin.saveConfig();
+						}
 						return true;
 					}
 					else if(args[0].equalsIgnoreCase("remove")) {

@@ -26,12 +26,12 @@ public class ContainerBlockerListener implements Listener {
 		if(plugin.getBlockMode()) {
 			// All items are being blocked except those in config.yml
 			// Return if the current item is on the list of allowed items
-			if(plugin.itemsAreOnList(currentItem, cursorItem)) return;
+			if(!plugin.itemsAreOnList(currentItem, cursorItem)) return;
 		}
 		else {
 			// Items in config.yml are being blocked
 			// Return if the current item isn't on the list of blocked items
-			if(!plugin.itemsAreOnList(currentItem, cursorItem)) return;
+			if(plugin.itemsAreOnList(currentItem, cursorItem)) return;
 		}
 		
 		/*
@@ -43,6 +43,7 @@ public class ContainerBlockerListener implements Listener {
 		// Do only stop the event if the restrictions apply to the current inventory.
 		if(plugin.getInventoryList().contains(e.getInventory().getType())) {
 			e.setCancelled(true);
+			if(plugin.getMessage_on_block()) e.getWhoClicked().sendMessage("You can't place that item in there!");
 		}
 
 	}
