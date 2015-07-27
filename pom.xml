@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.omniscimus</groupId>
 	<artifactId>containerblocker</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<name>ContainerBlocker</name>
 	<description>Bukkit plugin that prevents people from placing certain items in containers.</description>
 	<url>http://omniscimus.net/projects.html</url>

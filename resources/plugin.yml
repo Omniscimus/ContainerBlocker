@@ -1,6 +1,6 @@
 name: ContainerBlocker
 main: net.omniscimus.containerblocker.ContainerBlocker
-version: 1.0.0
+version: ${pom.version}
 description: This plugin prevents players from placing certain items in containers.
 author: Omniscimus
 commands:
