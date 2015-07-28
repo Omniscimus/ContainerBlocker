@@ -23,8 +23,9 @@ public class ContainerBlockerListener implements Listener {
 		ItemStack currentItem = e.getCurrentItem();
 		ItemStack cursorItem = e.getCursor();
 		
-		// moet ik hier currentItem of cursorItem hebben?
-		if(e.getWhoClicked().hasPermission("containerblocker.override." + currentItem.getType().name())) return;
+		if(currentItem != null && currentItem.getType() != null && currentItem.getType().name() != null && cursorItem != null && cursorItem.getType() != null && cursorItem.getType().name() != null) {
+			if(e.getWhoClicked().hasPermission("containerblocker.override." + currentItem.getType().name()) || e.getWhoClicked().hasPermission("containerblocker.override." + cursorItem.getType().name())) return;
+		}
 
 		if(plugin.getBlockMode()) {
 			// All items are being blocked except those in config.yml
