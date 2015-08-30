@@ -1,5 +1,6 @@
 package net.omniscimus.containerblocker;
 
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -18,32 +19,57 @@ public class ContainerBlockerListener implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
 
-		if(e.getWhoClicked().hasPermission("containerblocker.override")) return;
+		HumanEntity clicker = e.getWhoClicked();
+		if(clicker.hasPermission("containerblocker.override")) return;
 
-		ItemStack currentItem = e.getCurrentItem();
-		ItemStack cursorItem = e.getCursor();
+		ItemStack relevantItem;
 		
-		if(currentItem != null && currentItem.getType() != null && currentItem.getType().name() != null && cursorItem != null && cursorItem.getType() != null && cursorItem.getType().name() != null) {
-			if(e.getWhoClicked().hasPermission("containerblocker.override." + currentItem.getType().name()) || e.getWhoClicked().hasPermission("containerblocker.override." + cursorItem.getType().name())) return;
+		int hotbarButton = e.getHotbarButton();
+		if(hotbarButton != -1) {
+			// This InventoryClickEvent was caused by a HotbarButton.
+			// Get the item on the location of that hotbarbutton, if the item on that spot is blocked, cancel.
+			ItemStack hotbarButtonItemStack = clicker.getInventory().getItem(hotbarButton);
+			if(hotbarButtonItemStack != null) relevantItem = hotbarButtonItemStack;
+			else if(e.getCurrentItem() != null) {
+				// The player is trying to grab something out of a container, get that item.
+				relevantItem = e.getCurrentItem();
+			}
+			else return;
 		}
+		else {
+			
+			ItemStack currentItem = e.getCurrentItem();
+			ItemStack cursorItem = e.getCursor();
+			
+			if(currentItem != null) {
+				relevantItem = currentItem;
+			}
+			else if(cursorItem != null) {
+				relevantItem = cursorItem;
+			}
+			else return;
 
+		}
+		
+		if(clicker.hasPermission("containerblocker.override." + relevantItem.getType().name())) return;
+		
 		if(plugin.getBlockMode()) {
 			// All items are being blocked except those in config.yml
 			// Return if the current item is on the list of allowed items
-			if(!plugin.itemsAreOnList(currentItem, cursorItem)) return;
+			if(!plugin.itemIsOnList(relevantItem)) return;
 		}
 		else {
 			// Items in config.yml are being blocked
 			// Return if the current item isn't on the list of blocked items
-			if(plugin.itemsAreOnList(currentItem, cursorItem)) return;
+			if(plugin.itemIsOnList(relevantItem)) return;
 		}
-		
+
 		/*
 		 * Events that haven't been returned here yet:
 		 * - All items on the list are allowed, and the clicked item is on the list
 		 * - Items on the list are being blocked, and the clicked item isn't on the list
 		 */
-		
+
 		// Do only stop the event if the restrictions apply to the current inventory.
 		if(plugin.getInventoryList().contains(e.getInventory().getType())) {
 			e.setCancelled(true);

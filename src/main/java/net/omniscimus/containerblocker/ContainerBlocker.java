@@ -61,10 +61,10 @@ public class ContainerBlocker extends JavaPlugin {
 		return false;
 	}
 	/** @return true if one of these items is on the list */
-	public boolean itemsAreOnList(ItemStack item1, ItemStack item2) {
+	/*public boolean itemsAreOnList(ItemStack item1, ItemStack item2) {
 		if(itemIsOnList(item1) || itemIsOnList(item2)) return true;
 		else return false;
-	}
+	}*/
 	
 	@SuppressWarnings("unchecked")
 	@Override
