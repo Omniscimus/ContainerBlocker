@@ -10,6 +10,11 @@
   <description>This plugin prevents players from placing certain items in containers.</description>
   <url>http://omniscimus.net/projects.html</url>
 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
   <build>
     <resources>
       <resource>
